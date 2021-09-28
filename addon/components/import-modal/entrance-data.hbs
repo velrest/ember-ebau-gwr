@@ -1,14 +1,130 @@
 <span class="uk-flex uk-child-width-1-2">
-  <span>{{t "ember-gwr.buildingEntrance.fields.buildingEntranceNo"}}</span>
-  <span class="uk-text-muted">{{or @model.buildingEntranceNo "-"}}</span>
+  <span>{{t "ember-gwr.buildingWork.kindOfWork"}}</span>
+  <span class="uk-text-muted">{{if
+      @model.kindOfWork
+      (t (concat "ember-gwr.buildingWork.kindOfWorkOptions." @model.kindOfWork))
+      "-"
+    }}</span>
 </span>
 <hr />
 <span class="uk-flex uk-child-width-1-2">
-  <span>{{t "ember-gwr.buildingEntrance.fields.locality.name.nameLong"}}</span>
-  <span class="uk-text-muted">{{or @model.locality.name.nameLong "-"}}</span>
+  <span>{{t "ember-gwr.building.buildingStatus"}}</span>
+  <span class="uk-text-muted">{{if
+      @model.building.buildingStatus
+      (t
+        (concat
+          "ember-gwr.building.buildingStatusOptions."
+          @model.building.buildingStatus
+        )
+      )
+      "-"
+    }}</span>
 </span>
 <hr />
 <span class="uk-flex uk-child-width-1-2">
-  <span>{{t "ember-gwr.buildingEntrance.fields.locality.swissZipCode"}}</span>
-  <span class="uk-text-muted">{{or @model.locality.swissZipCode "-"}}</span>
+  <span>{{t "ember-gwr.building.nameOfBuilding"}}</span>
+  <span class="uk-text-muted">{{or @model.building.nameOfBuilding "-"}}</span>
 </span>
+<hr />
+<span class="uk-flex uk-child-width-1-2">
+  <span>{{t "ember-gwr.building.buildingCategory"}}</span>
+  <span class="uk-text-muted">
+    {{if
+      @model.building.buildingCategory
+      (t
+        (concat
+          "ember-gwr.building.buildingCategoryOptions."
+          @model.building.buildingCategory
+        )
+      )
+      "-"
+    }}
+  </span>
+</span>
+<hr />
+<span class="uk-flex uk-child-width-1-2">
+  <span>{{t "ember-gwr.building.buildingClass"}}</span>
+  <span class="uk-text-muted">
+    {{if
+      @model.building.buildingClass
+      (t
+        (concat
+          "ember-gwr.building.buildingClassOptions."
+          @model.building.buildingClass
+        )
+      )
+      "-"
+    }}
+  </span>
+</span>
+<hr />
+<span class="uk-flex uk-child-width-1-2">
+  <span>{{t "ember-gwr.building.numberOfFloors"}}</span>
+  <span class="uk-text-muted">{{or @model.building.numberOfFloors "-"}}</span>
+</span>
+
+<ul
+  uk-accordion="collapsible: false;multiple: false; active: 0;"
+  class="ember-ebau-gwr-import-building-list"
+>
+  {{#each
+    (array
+      (hash
+        buildingEntranceNo="12c"
+        locality=(hash name=(hash nameLong="Galgenen"))
+        swissZipCode="2881"
+      )
+      (hash
+        buildingEntranceNo="1"
+        locality=(hash name=(hash nameLong="Siebnen"))
+        swissZipCode="2881"
+      )
+      (hash
+        buildingEntranceNo="10"
+        locality=(hash name=(hash nameLong="Galgenen"))
+        swissZipCode="2881"
+      )
+    )
+    as |model index|
+  }}
+    <li>
+      <a class="uk-accordion-title" href="#">{{t
+          (concat "ember-gwr.models.entrance")
+          count=1
+        }}
+        {{inc index}}</a>
+      <div class="uk-accordion-content">
+        <span class="uk-flex uk-child-width-1-2">
+          <span>{{t
+              "ember-gwr.buildingEntrance.fields.buildingEntranceNo"
+            }}</span>
+          <span class="uk-text-muted">{{or
+              @model.buildingEntranceNo
+              "-"
+            }}</span>
+        </span>
+        <hr />
+        <span class="uk-flex uk-child-width-1-2">
+          <span>{{t
+              "ember-gwr.buildingEntrance.fields.locality.name.nameLong"
+            }}</span>
+          <span class="uk-text-muted">{{or
+              @model.locality.name.nameLong
+              "-"
+            }}</span>
+        </span>
+        <hr />
+        <span class="uk-flex uk-child-width-1-2">
+          <span>{{t
+              "ember-gwr.buildingEntrance.fields.locality.swissZipCode"
+            }}</span>
+          <span class="uk-text-muted">{{or
+              @model.locality.swissZipCode
+              "-"
+            }}</span>
+        </span>
+        {{yield}}
+      </div>
+    </li>
+  {{/each}}
+</ul>

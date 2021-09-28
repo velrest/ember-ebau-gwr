@@ -13,34 +13,13 @@
     </h2>
   </Modal.header>
   <Modal.body class="uk-overflow-auto">
-    <ul
-      uk-accordion="collapsible: false;multiple: false; active: 0;"
-      class="ember-ebau-gwr-import-building-list"
-    >
-      {{#each @import.originalData as |model index|}}
-        <li>
-          <a class="uk-accordion-title" href="#">{{t
-              (concat "ember-gwr.models." @modelName)
-              count=1
-            }}
-            {{inc index}}</a>
-          <div class="uk-accordion-content">
-            {{component
-              (concat "import-modal/" @modelName "-data")
-              model=model
-            }}
+    <ImportModal::List
+      @data={{@import.originalData}}
+      @close={{@close}}
+      @title={{t "ember-gwr.models.building" count=1}}
+      @dataComponent={{concat "import-modal/" @modelName "-data"}}
+    />
 
-            <LinkTo
-              @query={{hash import=true index=index}}
-              class="uk-button uk-button-primary uk-margin-medium-top uk-width-1"
-              {{on "click" @close}}
-            >
-              {{t "ember-gwr.components.modelForm.importFromCaluma"}}
-            </LinkTo>
-          </div>
-        </li>
-      {{/each}}
-    </ul>
   </Modal.body>
   <Modal.footer>
     <LinkTo

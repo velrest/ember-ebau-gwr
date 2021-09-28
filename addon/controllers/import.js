@@ -30,16 +30,18 @@ export default class ImportController extends Controller {
     }
 
     const index = Number(this.importIndex);
-    const data =
-      Array.isArray(this.importData) && !isNaN(index)
-        ? this.importData[index]
-        : this.importData;
+    const importData =
+      this.importData[this.importPropertyPath] ?? this.importData;
+
+    const data = Array.isArray(importData && !isNaN(index))
+      ? importData[index]
+      : importData;
 
     return this.showImport
       ? {
           index,
           data,
-          originalData: this.importData,
+          originalData: importData,
         }
       : false;
   }
@@ -52,12 +54,6 @@ export default class ImportController extends Controller {
   @lastValue("fetchCalumaData") importData;
   @task
   *fetchCalumaData(...args) {
-    // Reset query params to clear singleton state
-    this.resetImport();
-    assert(
-      "Must set `importModelName` to a string.",
-      typeof this.importModelName === "string"
-    );
-    return yield this.dataImport[IMPORT_MAP[this.importModelName]](...args);
+    return yield this.dataImport.fetchProject(...args);
   }
 }

@@ -1,0 +1,22 @@
+<ul
+  uk-accordion="collapsible: false;multiple: false; active: 0;"
+  class="ember-ebau-gwr-import-building-list"
+>
+  {{#each @data as |model index|}}
+    <li>
+      <a class="uk-accordion-title" href="#">{{@title}} {{inc index}}</a>
+      <div class="uk-accordion-content">
+        {{#component @dataComponent model=model}}
+
+          <LinkTo
+            @query={{hash import=true index=index}}
+            class="uk-button uk-button-primary uk-margin-medium-top uk-width-1"
+            {{on "click" @close}}
+          >
+            {{t "ember-gwr.components.modelForm.importFromCaluma"}}
+          </LinkTo>
+        {{/component}}
+      </div>
+    </li>
+  {{/each}}
+</ul>
